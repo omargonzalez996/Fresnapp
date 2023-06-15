@@ -28,9 +28,10 @@ def getWeather():
     lat = str(location.latitude)
     lon = str(location.longitude)
     key = "5407c192dbf2ccac1f5e08055121db44"
-    api = "https://api.openweathermap.org/data/2.5/weather?q=" + \
-        city+"&2a46bbb61325adf24df6391d00ddcb45"
-    # api = "https://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon+"&appid=5407c192dbf2ccac1f5e08055121db44"
+    # api = "https://api.openweathermap.org/data/2.5/weather?q="+city+"&2a46bbb61325adf24df6391d00ddcb45"
+    api = "https://api.openweathermap.org/data/2.5/weather?lat=" + \
+        lat+"&lon="+lon+"&appid=5407c192dbf2ccac1f5e08055121db44"
+
     json_data = requests.get(api).json()
     print(json_data)
     condition = json_data['weather'][0]['main']
@@ -40,9 +41,13 @@ def getWeather():
     humidity = json_data['main']['humidity']
     wind = json_data['wind']['speed']
 
-    t.config(text=(temp))
-    c.config(text=(condition, "|", "FEELS", "LIKE", temp))
-    h.config(text=(humidity))
+    t.config(text=(temp, "°"))
+    c.config(text=(condition, "|", "FEELS", "LIKE", temp, "°"))
+
+    w.config(text=wind)
+    h.config(text=humidity)
+    d.config(text=description)
+    p.config(text=pressure)
 
 
 textfield = tk.Entry(root, justify="left", width=20,
@@ -91,16 +96,16 @@ t.place(x=400, y=150)
 c = Label(font=("arial", 15, "bold"))
 c.place(x=400, y=250)
 
-w = Label(text="...", font=("arial", 20, "bold"))
-w.place(x=130, y=430)
+w = Label(text="", font=("arial", 20, "bold"))
+w.place(x=120, y=430)
 
-h = Label(text="...", font=("arial", 20, "bold"))
+h = Label(text="", font=("arial", 20, "bold"))
 h.place(x=285, y=430)
 
-d = Label(text="...", font=("arial", 20, "bold"))
-d.place(x=470, y=430)
+d = Label(text="", font=("arial", 20, "bold"))
+d.place(x=410, y=430)
 
-p = Label(text="...", font=("arial", 20, "bold"))
+p = Label(text="", font=("arial", 20, "bold"))
 p.place(x=680, y=430)
 
 root.mainloop()
